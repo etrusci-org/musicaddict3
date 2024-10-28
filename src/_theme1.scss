@@ -13,7 +13,7 @@ $img_zoom_transition: 0.3s ease-in-out;
 
 
 body {
-    padding: 1rem 2rem 50rem 2rem;
+    padding: 1rem 2rem 50rem;
     overflow-x: scroll;
     overflow-y: auto;
 }
@@ -37,7 +37,7 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1rem 1rem;
+    gap: 1rem;
     align-content: start;
     align-items: stretch;
     justify-content: start;
