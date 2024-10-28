@@ -5,8 +5,11 @@
 
 ## Unreleased
 
+-
+
+
+
+
+## v1.0.0 - 2024-10-29
+
 - First playable version.
-
-
-
-<!-- ## v1.0.0 - 2024-10-?? -->
