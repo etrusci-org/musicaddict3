@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true
+    },
+    "tasks": [
+        {
+            "label": "streamroom dev",
+            "dependsOn": [
+                "db",
+                "tsc",
+                "sass",
+                "csso",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "db",
+            "type": "shell",
+            "command": "./db/pocketbase serve",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev"
+            }
+        },
+        {
+            "label": "tsc",
+            "type": "shell",
+            "command": "tsc --watch -p ./tsconfig.json",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev"
+            }
+        },
+        {
+            "label": "sass",
+            "type": "shell",
+            "command": "sass --watch --update --no-source-map --style expanded --charset --load-path ./src/vendor/pico/2.0.6/scss ./src/:./src/",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev"
+            }
+        },
+        {
+            "label": "csso",
+            "type": "shell",
+            "command": "sleep 1.0 && csso --watch --stat --comments none --input-source-map none --source-map none --input ./src/musicaddict3.css --output ./app/lib/musicaddict3.min.css",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev"
+            }
+        },
+    ]
+}
