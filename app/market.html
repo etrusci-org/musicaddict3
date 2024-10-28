@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
+    <style class="crit">.hide { display: none; }</style>
+
+    <title>Music Addict 3 &middot; Market Trades</title>
+</head>
+<body>
+    <noscript>This game needs JavaScript to work.</noscript>
+
+    <div class="sysmsg"></div>
+
+
+    <div class="app">
+
+        <h1><span>Music Addict 3 &middot; Market Trades</span></h1>
+
+
+        <div class="loading" aria-busy="true"></div>
+
+
+        <div class="tradelog hide">
+            <article>
+                <p>
+                    Recent trades from players around the globe.
+                    Updates automagically.
+                    To contribute to this list, <a href="./">play the game</a>.
+                </p>
+
+                <p>
+                    Active players: <span class="activeplayers_count_value"></span>
+                </p>
+
+                <div class="overflow-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Buy</th>
+                                <th>Sell</th>
+                                <th>Profit</th>
+                                <th>Record</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tradelog_list"></tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+
+
+    </div><!--/.app-->
+
+
+
+
+    <script type="module">
+        // @ts-check
+        const style = document.createElement('link')
+        style.setAttribute('rel', 'stylesheet')
+        style.setAttribute('href', `./lib/musicaddict3.min.css?v=${Date.now()}`)
+        document.head.append(style)
+        document.head.querySelector('style.crit')?.remove()
+
+        const script = document.createElement('script')
+        script.setAttribute('type', 'module')
+        script.setAttribute('src', `./lib/musicaddict3.mjs?v=${Date.now()}`)
+        document.body.append(script)
+    </script>
+
+</body>
+</html>
+<!--
+https://etrusci.org
+https://github.com/etrusci-org/musicaddict3
+-->

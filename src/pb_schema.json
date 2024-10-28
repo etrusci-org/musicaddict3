@@ -1,0 +1,147 @@
+[
+    {
+        "id": "lrvrjqbxcrcm85o",
+        "name": "ma3_users",
+        "type": "auth",
+        "system": false,
+        "schema": [],
+        "indexes": [],
+        "listRule": "@request.auth.id = id",
+        "viewRule": "@request.auth.id = id",
+        "createRule": "@request.auth.id = ''",
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {
+            "allowEmailAuth": false,
+            "allowOAuth2Auth": false,
+            "allowUsernameAuth": true,
+            "exceptEmailDomains": null,
+            "manageRule": null,
+            "minPasswordLength": 8,
+            "onlyEmailDomains": null,
+            "onlyVerified": false,
+            "requireEmail": false
+        }
+    },
+    {
+        "id": "fbumpbbsrpsfka3",
+        "name": "ma3_saves",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "cfjwdswc",
+                "name": "user",
+                "type": "relation",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "collectionId": "lrvrjqbxcrcm85o",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": null
+                }
+            },
+            {
+                "system": false,
+                "id": "tuhlcslc",
+                "name": "data",
+                "type": "text",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": "@request.auth.id = user.id",
+        "viewRule": "@request.auth.id = user.id",
+        "createRule": "@request.auth.id = user.id",
+        "updateRule": "@request.auth.id = user.id",
+        "deleteRule": "@request.auth.id = user.id",
+        "options": {}
+    },
+    {
+        "id": "h9yic6yo7ozuj57",
+        "name": "ma3_tradelog",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "jviy5c0y",
+                "name": "trade_type",
+                "type": "select",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "values": [
+                        "buy",
+                        "sell"
+                    ]
+                }
+            },
+            {
+                "system": false,
+                "id": "jmqevffe",
+                "name": "record",
+                "type": "json",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "maxSize": 10000
+                }
+            }
+        ],
+        "indexes": [
+            "CREATE UNIQUE INDEX `idx_qIoBVUh` ON `ma3_tradelog` (\n  `record`,\n  `trade_type`\n)"
+        ],
+        "listRule": "",
+        "viewRule": null,
+        "createRule": "@request.auth.id != ''",
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {}
+    },
+    {
+        "id": "gjblkbvw8a1efkb",
+        "name": "ma3_activeplayers",
+        "type": "view",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "bgq3hxkt",
+                "name": "activeplayers_count",
+                "type": "number",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "noDecimal": false
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": null,
+        "viewRule": "",
+        "createRule": null,
+        "updateRule": null,
+        "deleteRule": null,
+        "options": {
+            "query": "SELECT (ROW_NUMBER() OVER()) AS id, COUNT(id) AS activeplayers_count\nFROM ma3_saves\nWHERE updated > DATETIME('now', '-60 seconds')\nORDER BY updated DESC;"
+        }
+    }
+]

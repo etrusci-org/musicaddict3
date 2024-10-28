@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
+    <style class="crit">.hide { display: none; }</style>
+
+    <title>Music Addict 3</title>
+</head>
+<body>
+    <noscript>This game needs JavaScript to work.</noscript>
+
+    <div class="sysmsg"></div>
+
+
+    <div class="app container">
+
+        <h1><span>Music Addict 3</span></h1>
+
+
+        <div class="loading" aria-busy="true"></div>
+
+
+        <details class="intro hide">
+            <summary>[ intro story ]</summary>
+            <article class="grid">
+                <div class="story">
+                    <p>
+                        It's the year 2064. After a flood swept through your one-room flat, nearly everything you owned is gone, along with your cherished music collection.
+                        Just seven crumpled bills remain in your pocket - a small chance to start again in a world that's been washed clean of what mattered.
+                    </p>
+                    <p>
+                        Sitting on a weathered bench by the shore, the empty weight in your hands hits hard.
+                        But maybe, just maybe, this is your way back.
+                        With this last bit of money, patience, and luck, you'll trade, hustle, and scrape by, building your collection one track at a time . . .
+                    </p>
+                    <p>
+                        "At least my funeral will still have a soundtrack", you think, as you walk to the record store . . .
+                    </p>
+                </div>
+
+                <div>
+                    <p>
+                        <img src="./res/intro.gif" loading="lazy">
+                    </p>
+
+                    <details class="about">
+                        <summary>[ about ]</summary>
+
+                        <p>
+                            <strong>Music Addict 3</strong> is a free-to-play idle game.<br>
+                            Created by <a href="https://etrusci.org" target="_blank">arT2</a>.
+                        </p>
+                        <p>
+                            <strong>Prequels</strong>:
+                            <a href="https://etrusci.org/play/musicaddict" target="_blank">1</a>,
+                            <a href="https://etrusci.org/play/musicaddict2" target="_blank">2</a>
+                        </p>
+                        <p>
+                            Find more information on <a href="https://github.com/etrusci-org/musicaddict3" target="_blank">GitHub</a>.
+                        </p>
+                    </details>
+                </div>
+
+            </article>
+        </details>
+
+
+        <div class="signin hide">
+            <div class="grid">
+                <article class="signin_login">
+                    <fieldset>
+                        <label>
+                            username
+                            <input class="signin_login_username" type="text">
+                        </label>
+                        <label>
+                            password
+                            <input class="signin_login_password" type="password">
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <button class="signin_login_submit">login</button>
+                    </fieldset>
+                </article>
+
+                <article class="signin_register">
+                    <fieldset>
+                        <label>
+                            username
+                            <input class="signin_register_username" type="text">
+                            <small>3-150 characthers: <code>A-Z</code> <code>0-9</code> <code>_</code> <code>.</code> <code>-</code></small>
+                        </label>
+                        <label>
+                            password
+                            <input class="signin_register_password" type="password">
+                            <small>8-72 characters.</small>
+                        </label>
+                        <label>
+                            confirm password
+                            <input class="signin_register_passwordconfirm" type="password">
+                        </label>
+                    </fieldset>
+                    <p>
+                        The progress data is stored on the server and tied to the account you register here. This allows you to resume the game on different devices.<br>
+                        Note: because no email is required, there is also no way to reset a forgotten password.
+                    </p>
+                    <fieldset>
+                        <button class="signin_register_submit">register</button>
+                    </fieldset>
+                </article>
+            </div>
+        </div>
+
+
+        <div class="game hide">
+
+            <details class="ctrl" open>
+                <summary>[ controls ]</summary>
+                <article>
+                    <p class="player_name hide"><span>Playing as <strong class="player_name_value"></strong></span></p>
+                    <fieldset class="flex">
+                        <button class="ctrl_play">play</button>
+                        <button class="ctrl_pause hide">pause</button>
+                        <button class="ctrl_upgrade_storage hide">+1 storage slot: <span class="ctrl_upgrade_storage_value"></span></button>
+                        <button class="ctrl_bgmusic">music</button>
+                        <button class="ctrl_theme">theme</button>
+                        <button class="ctrl_logout">logout</button>
+                        <button class="ctrl_reset">reset</button>
+                    </fieldset>
+                    <fieldset class="mood">
+                        <p>b e h a v i o u r</p>
+                        <div class="grid">
+                            <label class="ctrl_buy_chance">
+                                <span class="ctrl_buy_chance_value"></span> <span data-tooltip="&larr; buy all you can &middot;&middot;&middot; very rarely buy &rarr;">picky</span>
+                                <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" disabled="disabled">
+                            </label>
+                            <label class="ctrl_sell_chance">
+                                <span class="ctrl_sell_chance_value"></span> <span data-tooltip="&larr; sell all you can &middot;&middot;&middot; very rarely sell &rarr;">clingy</span>
+                                <input type="range" min="0.01" max="0.99" step="0.01" value="0.5" disabled="disabled">
+                            </label>
+                        </div>
+                    </fieldset>
+                </article>
+            </details>
+
+
+            <details class="stats" open>
+                <summary>[ progress statistics ]</summary>
+                <article class="flex wide">
+                    <div>
+                        <span class="stats_cash"><span class="ico cash" data-tooltip="Cash on hand"></span><span class="stats_cash_value"></span></span>
+                        <span class="stats_reputation"><span class="ico reputation" data-tooltip="Reputation"></span><span class="stats_reputation_value"></span></span><br>
+                        <span class="stats_records"><span class="ico collection" data-tooltip="Records in collection"></span><span class="stats_records_value"></span></span><br>
+                        <span class="stats_collection_worth"><span class="ico collection_worth" data-tooltip="Collection worth"></span><span class="stats_collection_worth_value"></span></span>
+                    </div>
+
+                    <div>
+                        <span class="stats_trade_income"><span class="ico trade_income" data-tooltip="Trade income"></span><span class="stats_trade_income_value"></span></span>
+                        <span class="stats_records_sold"><span class="ico records_sold" data-tooltip="Records sold"></span><span class="stats_records_sold_value"></span></span><br>
+                        <span class="stats_trade_expenses"><span class="ico trade_expenses" data-tooltip="Trade expenses"></span><span class="stats_trade_expenses_value"></span></span>
+                        <span class="stats_records_bought"><span class="ico records_bought" data-tooltip="Records bought"></span><span class="stats_records_bought_value"></span></span><br>
+                        <span class="stats_trade_profit"><span class="ico trade_profit" data-tooltip="Trade profit"></span><span class="stats_trade_profit_value"></span></span>
+                    </div>
+
+                    <div>
+                        <span class="stats_records_listened"><span class="ico records_listened" data-tooltip="Records listened to"></span><span class="stats_records_listened_value"></span></span><br>
+                        <span class="stats_records_liked"><span class="ico records_liked" data-tooltip="Records liked"></span><span class="stats_records_liked_value"></span></span>
+                        <span class="stats_records_missed"><span class="ico records_missed" data-tooltip="Liked records missed because low on cash or storage space"></span><span class="stats_records_missed_value"></span></span><br>
+                        <span class="stats_records_disliked"><span class="ico records_disliked" data-tooltip="Records disliked"></span><span class="stats_records_disliked_value"></span></span>
+
+                    </div>
+
+                    <div>
+                        <span class="stats_next_offer_in"><span class="ico trade_offer_chance" data-tooltip="Countdown to next trade offer chance"></span><span class="stats_next_offer_in_value"></span></span><br>
+                        <span class="stats_trade_offers_accepted"><span class="ico trade_offers_accepted" data-tooltip="Trade offers accepted"></span><span class="stats_trade_offers_accepted_value"></span></span><br>
+                        <span class="stats_trade_offers_declined"><span class="ico trade_offers_declined" data-tooltip="Trade offers declined"></span><span class="stats_trade_offers_declined_value"></span></span>
+                    </div>
+
+                    <div>
+                        <span class="stats_autosaved_ago"><span class="ico autosaved" data-tooltip="Time since last auto-save"></span><span class="stats_autosaved_ago_value"></span></span><br>
+                        <span class="stats_session_duration"><span class="ico session_duration" data-tooltip="Session duration"></span><span class="stats_session_duration_value"></span></span><br>
+                        <span class="stats_started_on"><span class="ico started" data-tooltip="Game started on"></span><span class="stats_started_on_value"></span></span>
+                    </div>
+                </article>
+            </details>
+
+
+            <details class="collection" open>
+                <summary>[ record collection ]</summary>
+                <article>
+                    <div class="collection_list flex"></div>
+                </article>
+            </details>
+
+
+            <details class="transactions" open>
+                <summary>[ recent transactions ]</summary>
+                <article class="transactions_list flex">
+                </article>
+            </details>
+
+
+            <details class="log" open>
+                <summary>[ recent journey ]</summary>
+                <article class="log_lines"></article>
+            </details>
+        </div>
+
+
+        <dialog class="record_info">
+            <article>
+                <header>
+                    <button class="close" aria-label="Close" rel="prev"></button>
+                    <h2 class="record_info_title"></h2>
+                </header>
+                <div class="grid">
+                    <p class="record_info_coverart"></p>
+                    <p class="record_info_meta"></p>
+                </div>
+            </article>
+        </dialog>
+
+
+        <dialog class="bgmusic_player">
+            <article>
+                <header>
+                    <button class="close" aria-label="Close" rel="prev"></button>
+                    <h2>background music</h2>
+                </header>
+                <p>
+                    <iframe
+                        class="mixcloud"
+                        src="https://player-widget.mixcloud.com/widget/iframe/?feed=/lowtechman/playlists/planet-420/&hide_cover=1&hide_artwork=1"
+                        loading="lazy">
+                    </iframe>
+                </p>
+                <p>
+                    The music will keep playing in the background if you close this dialog.<br>
+                    Click 'UP NEXT' in the bottom right corner of the player to select another mixtape
+                    or <a href="https://bandcamp.com/discover" target="_blank">discover music you like there</a>.
+                </p>
+                <p>
+
+                </p>
+            </article>
+        </dialog>
+
+    </div><!--/.app-->
+
+
+
+
+    <script type="module">
+        // @ts-check
+        const bc = new BroadcastChannel('musicaddict3');
+
+        bc.onmessage = (event) => {
+            switch (event.data) {
+                case 'game_tab_opened':
+                    bc.postMessage('block_tab');
+                    break
+
+                case 'block_tab':
+                    alert('Game is already opened in another tab.');
+                    window.location.replace('./market.html')
+                    break
+            }
+        }
+
+        bc.postMessage(`game_tab_opened`);
+
+        const style = document.createElement('link')
+        style.setAttribute('rel', 'stylesheet')
+        style.setAttribute('href', `./lib/musicaddict3.min.css?v=${Date.now()}`)
+        document.head.append(style)
+        document.head.querySelector('style.crit')?.remove()
+
+        const script = document.createElement('script')
+        script.setAttribute('type', 'module')
+        script.setAttribute('src', `./lib/musicaddict3.mjs?v=${Date.now()}`)
+        document.body.append(script)
+    </script>
+</body>
+</html>
+<!--
+https://etrusci.org
+https://github.com/etrusci-org/musicaddict3
+-->
