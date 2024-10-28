@@ -68,11 +68,13 @@ This allows you to resume the game on different devices.
 - [SASS](https://github.com/sass/sass)
 - [CSSO](https://github.com/css/csso)
 
+The following commands are meant to be run from within the root directory of this repository.
+
 **Run local PocketBase server**:  
 On first run, open [admin page](http://127.0.0.1:8090/_/) and create admin account.  
 Then import collections from [src/pb_schema.json](./src/pb_schema.json).
 ```bash
-./db/pocketbase serve --dev
+./db/pocketbase serve
 ```
 
 **Compile Typescript to JavaScript**:
@@ -82,12 +84,12 @@ tsc --watch -p ./tsconfig.json
 
 **Compile SASS to CSS**:
 ```bash
-sass --watch --update --no-source-map --style expanded --charset --load-path ./src/vendor/pico/2.0.6/scss ./src/:./src/
+sass --watch --update --no-source-map --style expanded --charset --load-path ./src/vendor/pico/2.0.6/scss ./src/musicaddict3.scss:./src/musicaddict3-compiled.css
 ```
 
 **Optimize/minify CSS**:
 ```bash
-csso --watch --stat --comments none --input-source-map none --source-map none --input ./src/musicaddict3.css --output ./app/lib/musicaddict3.min.css
+csso --watch --stat --comments none --input-source-map none --source-map none --input ./src/musicaddict3-compiled.css --output ./app/lib/musicaddict3.min.css
 ```
 
 

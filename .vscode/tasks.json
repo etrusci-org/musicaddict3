@@ -44,7 +44,7 @@
         {
             "label": "sass",
             "type": "shell",
-            "command": "sass --watch --update --no-source-map --style expanded --charset --load-path ./src/vendor/pico/2.0.6/scss ./src/:./src/",
+            "command": "sass --watch --update --no-source-map --style expanded --charset --load-path ./src/vendor/pico/2.0.6/scss ./src/musicaddict3.scss:./src/musicaddict3-compiled.css",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
@@ -54,7 +54,7 @@
         {
             "label": "csso",
             "type": "shell",
-            "command": "sleep 1.0 && csso --watch --stat --comments none --input-source-map none --source-map none --input ./src/musicaddict3.css --output ./app/lib/musicaddict3.min.css",
+            "command": "sleep 1.0 && csso --watch --stat --comments none --input-source-map none --source-map none --input ./src/musicaddict3-compiled.css --output ./app/lib/musicaddict3.min.css",
             "isBackground": true,
             "problemMatcher": [],
             "presentation": {
