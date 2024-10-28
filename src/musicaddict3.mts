@@ -3,140 +3,12 @@ import PocketBase, { ListResult, RecordAuthResponse, RecordModel } from './vendo
 
 
 
+
 // ================================================================================================
-// COVERART
+// SHARED
 //
 
 const COVERART_BUFFER: coverart_buffer = {}
-
-const Coverart = (record_id: string, record_title: string): string | null =>
-{
-    const rgbval = (num: number | string): number =>
-    {
-        return Number(num) % 255
-    }
-
-    const rgbvalinv = (num: number | string): number =>
-    {
-        return 255 - rgbval(num)
-    }
-
-    try {
-        const canvas: HTMLCanvasElement = document.createElement('canvas')
-        const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d')
-        if (!ctx) {
-            console.warn('could not create canvas context')
-            return null
-        }
-
-        canvas.width = 100
-        canvas.height = 100
-
-        let rgba_opacity: number = 1.0
-
-        // background
-        ctx.fillStyle = `rgba(${rgbval(record_id.substring(0, 3))}, ${rgbval(record_id.substring(3, 6))}, ${rgbval(record_id.substring(6, 9))}, ${rgba_opacity})`
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-        // arcs
-        const arcs: {x: number, y: number, radius: number, startangle: number, endangle: number, counterclockwise: boolean}[] = []
-
-        let arcvalpos = {
-            x:          {start: 33, end: 35},
-            y:          {start: 35, end: 37},
-            radius:     {start: 37, end: 39},
-            startangle: {start: 39, end: 41},
-            endangle:   {start: 41, end: 43},
-            counterclockwise: false,
-        }
-
-        for (let c = 0; c < 3; c++) {
-            arcs.push({
-                x: Number(record_id.substring(arcvalpos.x.start, arcvalpos.x.end)),
-                y: Number(record_id.substring(arcvalpos.y.start, arcvalpos.y.end)),
-                radius: Number(record_id.substring(arcvalpos.radius.start, arcvalpos.radius.end)),
-                startangle: Number(record_id.substring(arcvalpos.startangle.start, arcvalpos.startangle.end)),
-                endangle: Number(record_id.substring(arcvalpos.endangle.start, arcvalpos.endangle.end)),
-                counterclockwise: arcvalpos.counterclockwise,
-            })
-            arcvalpos.x.start += 5
-            arcvalpos.x.end += 5
-            arcvalpos.y.start += 5
-            arcvalpos.y.end += 5
-            arcvalpos.radius.start += 5
-            arcvalpos.radius.end += 5
-            arcvalpos.startangle.start += 5
-            arcvalpos.startangle.end += 5
-            arcvalpos.endangle.start += 5
-            arcvalpos.endangle.end += 5
-        }
-
-        ctx.beginPath()
-
-        rgba_opacity = 0.1
-        for (const a of arcs) {
-            ctx.fillStyle = `rgba(${rgbvalinv(record_id.substring(3, 6))}, ${rgbvalinv(record_id.substring(6, 9))}, ${rgbvalinv(record_id.substring(9, 12))}, ${rgba_opacity})`
-            ctx.arc(a.x, a.y, a.radius, a.startangle, a.endangle, (a.startangle < a.endangle) ? true : false)
-            ctx.fill()
-            rgba_opacity += 0.1
-        }
-
-        ctx.closePath()
-
-        // rects
-        const rects: {x: number, y: number, w: number, h: number}[] = []
-
-        let rectvalpos = {
-            x: {start: 9,  end: 11},
-            y: {start: 11, end: 13},
-            w: {start: 13, end: 15},
-            h: {start: 15, end: 17},
-        }
-
-        for (let c = 0; c < 5; c++) {
-            rects.push({
-                x: Number(record_id.substring(rectvalpos.x.start, rectvalpos.x.end)),
-                y: Number(record_id.substring(rectvalpos.y.start, rectvalpos.y.end)),
-                w: Number(record_id.substring(rectvalpos.w.start, rectvalpos.w.end)),
-                h: Number(record_id.substring(rectvalpos.h.start, rectvalpos.h.end))
-            })
-            rectvalpos.x.start += 3
-            rectvalpos.x.end += 3
-            rectvalpos.y.start += 3
-            rectvalpos.y.end += 3
-            rectvalpos.w.start += 3
-            rectvalpos.w.end += 3
-            rectvalpos.h.start += 3
-            rectvalpos.h.end += 3
-        }
-
-        rgba_opacity = 0.2
-        for (const r of rects) {
-            ctx.fillStyle = `rgba(${rgbval(record_id.substring(2, 5))}, ${rgbval(record_id.substring(5, 8))}, ${rgbval(record_id.substring(8, 11))}, ${rgba_opacity})`
-            ctx.fillRect(r.x, r.y, r.w, r.h)
-            rgba_opacity += 0.1
-        }
-
-        // text
-        rgba_opacity = 1.0
-        ctx.fillStyle = `rgba(${rgbvalinv(record_id.substring(1, 4))}, ${rgbvalinv(record_id.substring(4, 7))}, ${rgbvalinv(record_id.substring(7, 10))}, ${rgba_opacity})`
-        ctx.font = `${Math.round(canvas.height / 2)}px sans-serif`
-        ctx.textBaseline = 'middle'
-        ctx.textAlign = 'center'
-        ctx.fillText(record_title.substring(0, 3).toUpperCase(), Math.round(canvas.width / 2), Math.round(canvas.height / 2), canvas.width - 15)
-
-        // Get data url and cleanup
-        const dataurl = canvas.toDataURL()
-        canvas.remove()
-        ctx.reset()
-
-        return dataurl
-    }
-    catch (boo) {
-        console.warn('error while creating coverart:', boo)
-        return null
-    }
-}
 
 
 
@@ -1470,6 +1342,142 @@ class MusicAddict3_UI
             }
         }
 
+    }
+}
+
+
+
+
+// ================================================================================================
+// COVERART
+//
+
+const Coverart = (record_id: string, record_title: string): string | null =>
+{
+    const rgbval = (num: number | string): number =>
+    {
+        return Number(num) % 255
+    }
+
+    const rgbvalinv = (num: number | string): number =>
+    {
+        return 255 - rgbval(num)
+    }
+
+    try {
+        const canvas: HTMLCanvasElement = document.createElement('canvas')
+        const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d')
+        if (!ctx) {
+            console.warn('could not create canvas context')
+            return null
+        }
+
+        canvas.width = 100
+        canvas.height = 100
+
+        let rgba_opacity: number = 1.0
+
+        // background
+        ctx.fillStyle = `rgba(${rgbval(record_id.substring(0, 3))}, ${rgbval(record_id.substring(3, 6))}, ${rgbval(record_id.substring(6, 9))}, ${rgba_opacity})`
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        // arcs
+        const arcs: {x: number, y: number, radius: number, startangle: number, endangle: number, counterclockwise: boolean}[] = []
+
+        let arcvalpos = {
+            x:          {start: 33, end: 35},
+            y:          {start: 35, end: 37},
+            radius:     {start: 37, end: 39},
+            startangle: {start: 39, end: 41},
+            endangle:   {start: 41, end: 43},
+            counterclockwise: false,
+        }
+
+        for (let c = 0; c < 3; c++) {
+            arcs.push({
+                x: Number(record_id.substring(arcvalpos.x.start, arcvalpos.x.end)),
+                y: Number(record_id.substring(arcvalpos.y.start, arcvalpos.y.end)),
+                radius: Number(record_id.substring(arcvalpos.radius.start, arcvalpos.radius.end)),
+                startangle: Number(record_id.substring(arcvalpos.startangle.start, arcvalpos.startangle.end)),
+                endangle: Number(record_id.substring(arcvalpos.endangle.start, arcvalpos.endangle.end)),
+                counterclockwise: arcvalpos.counterclockwise,
+            })
+            arcvalpos.x.start += 5
+            arcvalpos.x.end += 5
+            arcvalpos.y.start += 5
+            arcvalpos.y.end += 5
+            arcvalpos.radius.start += 5
+            arcvalpos.radius.end += 5
+            arcvalpos.startangle.start += 5
+            arcvalpos.startangle.end += 5
+            arcvalpos.endangle.start += 5
+            arcvalpos.endangle.end += 5
+        }
+
+        ctx.beginPath()
+
+        rgba_opacity = 0.1
+        for (const a of arcs) {
+            ctx.fillStyle = `rgba(${rgbvalinv(record_id.substring(3, 6))}, ${rgbvalinv(record_id.substring(6, 9))}, ${rgbvalinv(record_id.substring(9, 12))}, ${rgba_opacity})`
+            ctx.arc(a.x, a.y, a.radius, a.startangle, a.endangle, (a.startangle < a.endangle) ? true : false)
+            ctx.fill()
+            rgba_opacity += 0.1
+        }
+
+        ctx.closePath()
+
+        // rects
+        const rects: {x: number, y: number, w: number, h: number}[] = []
+
+        let rectvalpos = {
+            x: {start: 9,  end: 11},
+            y: {start: 11, end: 13},
+            w: {start: 13, end: 15},
+            h: {start: 15, end: 17},
+        }
+
+        for (let c = 0; c < 5; c++) {
+            rects.push({
+                x: Number(record_id.substring(rectvalpos.x.start, rectvalpos.x.end)),
+                y: Number(record_id.substring(rectvalpos.y.start, rectvalpos.y.end)),
+                w: Number(record_id.substring(rectvalpos.w.start, rectvalpos.w.end)),
+                h: Number(record_id.substring(rectvalpos.h.start, rectvalpos.h.end))
+            })
+            rectvalpos.x.start += 3
+            rectvalpos.x.end += 3
+            rectvalpos.y.start += 3
+            rectvalpos.y.end += 3
+            rectvalpos.w.start += 3
+            rectvalpos.w.end += 3
+            rectvalpos.h.start += 3
+            rectvalpos.h.end += 3
+        }
+
+        rgba_opacity = 0.2
+        for (const r of rects) {
+            ctx.fillStyle = `rgba(${rgbval(record_id.substring(2, 5))}, ${rgbval(record_id.substring(5, 8))}, ${rgbval(record_id.substring(8, 11))}, ${rgba_opacity})`
+            ctx.fillRect(r.x, r.y, r.w, r.h)
+            rgba_opacity += 0.1
+        }
+
+        // text
+        rgba_opacity = 1.0
+        ctx.fillStyle = `rgba(${rgbvalinv(record_id.substring(1, 4))}, ${rgbvalinv(record_id.substring(4, 7))}, ${rgbvalinv(record_id.substring(7, 10))}, ${rgba_opacity})`
+        ctx.font = `${Math.round(canvas.height / 2)}px sans-serif`
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center'
+        ctx.fillText(record_title.substring(0, 3).toUpperCase(), Math.round(canvas.width / 2), Math.round(canvas.height / 2), canvas.width - 15)
+
+        // Get data url and cleanup
+        const dataurl = canvas.toDataURL()
+        canvas.remove()
+        ctx.reset()
+
+        return dataurl
+    }
+    catch (boo) {
+        console.warn('error while creating coverart:', boo)
+        return null
     }
 }
 
