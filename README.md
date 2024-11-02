@@ -2,6 +2,8 @@
 
 Music Addict 3 is a free-to-play idle game that can be played in a webbrowser.
 
+[Demo video](https://www.youtube.com/watch?v=wiwzTSNTSZQ)
+
 
 
 
