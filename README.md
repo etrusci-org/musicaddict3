@@ -7,19 +7,6 @@ Music Addict 3 is a free-to-play idle game that can be played in a webbrowser.
 
 
 
-## Game Story
-
-It's the year 2064. After a flood swept through your one-room flat, nearly everything you owned is gone, along with your cherished music collection. Just seven crumpled bills remain in your pocket - a small chance to start again in a world that's been washed clean of what mattered.
-
-Sitting on a weathered bench by the shore, the empty weight in your hands hits hard. But maybe, just maybe, this is your way back. With this last bit of money, patience, and luck, you'll trade, hustle, and scrape by, building your collection one track at a time . . .
-
-"At least my funeral will still have a soundtrack", you think, as you walk to the record store . . .
-
-![Contemplative Jazz Music](./src/vendor/unknown/intro.gif)
-
-
-
-
 ## Usage Requirements
 
 - Internet connection.
