@@ -5,7 +5,8 @@
 
 ## Unreleased
 
--
+- Added: Username in market list.
+- Added: Market link in game interface.
 
 
 
