@@ -1034,7 +1034,7 @@ class MusicAddict3_Engine
     {
         try {
             const log_status: RecordModel = await this.DB.collection('ma3_tradelog').create({
-                user: this.user_session.id,
+                user_name: this.user_session.name,
                 trade_type: type,
                 record: JSON.stringify(record),
             })
@@ -1052,6 +1052,7 @@ class MusicAddict3_Engine
         const entry: HTMLElement = document.createElement('tr')
 
         entry.innerHTML = `
+            <td>${log_entry['user_name']}</td>
             <td>${Fmt.timestamp(Date.parse(log_entry.created), '{year}-{month}-{day} {hours}:{minutes}')}</td>
             <td>${(log_entry['trade_type'] == 'buy') ? Fmt.cash(log_entry['record'].buy_price.amount) : ''}</td>
             <td>${(log_entry['trade_type'] == 'sell') ? Fmt.cash(log_entry['record'].sell_price.amount) : ''}</td>
