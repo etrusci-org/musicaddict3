@@ -1,0 +1,1 @@
+- cron job that keeps ma3_tradelog tidy, e.g. "DELETE FROM ma3_tradelog ORDER BY created DESC LIMIT -1 OFFSET 100"

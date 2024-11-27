@@ -7,6 +7,7 @@ class MusicAddict3_Conf {
     game_loop_interval = 3000;
     ui_loop_interval = 1000;
     save_loop_interval = 60000;
+    authrefresh_loop_interval = 180000;
     activeplayers_loop_interval = 30000;
     discover_chance = 0.13;
     listening_duration_range = { min: 15000, max: 90000 };
@@ -103,6 +104,7 @@ class MusicAddict3_Engine {
                     game_loop_interval: this.Conf.game_loop_interval,
                     ui_loop_interval: this.Conf.ui_loop_interval,
                     save_loop_interval: this.Conf.save_loop_interval,
+                    authrefresh_loop_interval: this.Conf.authrefresh_loop_interval,
                 }
             },
         });
@@ -491,6 +493,21 @@ class MusicAddict3_Engine {
                 }
                 this.Worker.postMessage({
                     cmd: 'plan_next_save_loop_tick',
+                    payload: {},
+                });
+                break;
+            case 'authrefresh_loop_tick':
+                console.debug('authrefresh_loop_tick');
+                try {
+                    if (this.DB.authStore.isValid) {
+                        await this.DB.collection('ma3_users').authRefresh();
+                    }
+                }
+                catch (boo) {
+                    this.UI.sysmsg('Authentication-refresh failed.');
+                }
+                this.Worker.postMessage({
+                    cmd: 'plan_next_authrefresh_loop_tick',
                     payload: {},
                 });
                 break;
