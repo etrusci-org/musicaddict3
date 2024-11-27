@@ -76,6 +76,20 @@
         "schema": [
             {
                 "system": false,
+                "id": "45rqmkpk",
+                "name": "user_name",
+                "type": "text",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
                 "id": "jviy5c0y",
                 "name": "trade_type",
                 "type": "select",
@@ -104,7 +118,7 @@
             }
         ],
         "indexes": [
-            "CREATE UNIQUE INDEX `idx_qIoBVUh` ON `ma3_tradelog` (\n  `record`,\n  `trade_type`\n)"
+            "CREATE UNIQUE INDEX `idx_agJfhuZ` ON `ma3_tradelog` (\n  `user_name`,\n  `trade_type`,\n  `record`\n)"
         ],
         "listRule": "",
         "viewRule": null,
