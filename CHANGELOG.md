@@ -7,6 +7,7 @@
 
 - Added: Username in market list.
 - Added: Market link in game interface.
+<!-- Maybe, still testing: - Fix: Auto-save sometimes not working for a long duration. -->
 
 
 

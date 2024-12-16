@@ -25,7 +25,7 @@ class MusicAddict3_Conf
     game_loop_interval: number = 3_000
     ui_loop_interval: number = 1_000
     save_loop_interval: number = 60_000
-    authrefresh_loop_interval: number = 180_000
+    authrefresh_loop_interval: number = 600_000
     activeplayers_loop_interval: number = 30_000
 
     discover_chance: number = 0.13
