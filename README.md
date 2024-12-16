@@ -10,7 +10,7 @@ Music Addict 3 is a free-to-play idle game that can be played in a webbrowser.
 ## Usage Requirements
 
 - Internet connection.
-- Webbrowser supporting [ES2022](https://caniuse.com/sr_es13) (most modern webbrowsers except some stupid ones will do).
+- Webbrowser supporting [ES2022](https://caniuse.com/sr_es13) (most modern webbrowsers).
 - Minimum screen width ~400px.
 
 

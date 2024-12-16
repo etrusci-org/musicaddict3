@@ -1,9 +1,18 @@
 type worker_message_data = {
     cmd:
         'init_game' | 'init_market'
-        | 'play' | 'pause'
-        | 'plan_next_game_loop_tick' | 'plan_next_ui_loop_tick' | 'plan_next_save_loop_tick' | 'plan_next_activeplayers_loop_tick'
-        | 'game_loop_tick' | 'ui_loop_tick' | 'save_loop_tick' | 'activeplayers_loop_tick'
+        | 'play'
+        | 'pause'
+        | 'plan_next_game_loop_tick'
+        | 'plan_next_ui_loop_tick'
+        | 'plan_next_save_loop_tick'
+        | 'plan_next_authrefresh_loop_tick'
+        | 'plan_next_activeplayers_loop_tick'
+        | 'game_loop_tick'
+        | 'ui_loop_tick'
+        | 'save_loop_tick'
+        | 'authrefresh_loop_tick'
+        | 'activeplayers_loop_tick'
     payload: {
         [key: string]: any
     }

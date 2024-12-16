@@ -25,6 +25,7 @@ class MusicAddict3_Conf
     game_loop_interval: number = 3_000
     ui_loop_interval: number = 1_000
     save_loop_interval: number = 60_000
+    authrefresh_loop_interval: number = 600_000
     activeplayers_loop_interval: number = 30_000
 
     discover_chance: number = 0.13
@@ -154,6 +155,7 @@ class MusicAddict3_Engine
                     game_loop_interval: this.Conf.game_loop_interval,
                     ui_loop_interval: this.Conf.ui_loop_interval,
                     save_loop_interval: this.Conf.save_loop_interval,
+                    authrefresh_loop_interval: this.Conf.authrefresh_loop_interval,
                 }
             },
         } as worker_message_data)
@@ -208,11 +210,9 @@ class MusicAddict3_Engine
     async init_market(): Promise<void>
     {
         const recent_log_entries: ListResult<RecordModel> = await this.DB.collection('ma3_tradelog').getList(1, this.Conf.tradelog_list_max, { sort: '-created' })
-        // console.log(recent_log_entries)
 
         for (const log_entry of recent_log_entries.items) {
             this.add_to_marked_trades_list(log_entry, true)
-            // console.log(log_entry)
         }
 
         await this.DB.collection('ma3_tradelog').subscribe('*', (e) => this.add_to_marked_trades_list(e.record), { sort: '-created' })
@@ -662,6 +662,23 @@ class MusicAddict3_Engine
                 } as worker_message_data)
                 break
 
+            case 'authrefresh_loop_tick':
+                try {
+                    if (this.DB.authStore.isValid) {
+                        await this.DB.collection('ma3_users').authRefresh()
+                    }
+                }
+                catch (boo) {
+                    this.UI.sysmsg('Authentication-refresh failed.')
+                }
+
+                this.Worker.postMessage({
+                    cmd: 'plan_next_authrefresh_loop_tick',
+                    payload: {},
+                } as worker_message_data)
+                break
+
+
             case 'activeplayers_loop_tick':
                 try {
                     const activeplayers: RecordModel = await this.DB.collection('ma3_activeplayers').getOne('1', {})
@@ -1034,7 +1051,7 @@ class MusicAddict3_Engine
     {
         try {
             const log_status: RecordModel = await this.DB.collection('ma3_tradelog').create({
-                user: this.user_session.id,
+                user_name: this.user_session.name,
                 trade_type: type,
                 record: JSON.stringify(record),
             })
@@ -1052,6 +1069,7 @@ class MusicAddict3_Engine
         const entry: HTMLElement = document.createElement('tr')
 
         entry.innerHTML = `
+            <td>${log_entry['user_name']}</td>
             <td>${Fmt.timestamp(Date.parse(log_entry.created), '{year}-{month}-{day} {hours}:{minutes}')}</td>
             <td>${(log_entry['trade_type'] == 'buy') ? Fmt.cash(log_entry['record'].buy_price.amount) : ''}</td>
             <td>${(log_entry['trade_type'] == 'sell') ? Fmt.cash(log_entry['record'].sell_price.amount) : ''}</td>

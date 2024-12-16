@@ -7,6 +7,7 @@ class MusicAddict3_Conf {
     game_loop_interval = 3000;
     ui_loop_interval = 1000;
     save_loop_interval = 60000;
+    authrefresh_loop_interval = 600000;
     activeplayers_loop_interval = 30000;
     discover_chance = 0.13;
     listening_duration_range = { min: 15000, max: 90000 };
@@ -103,6 +104,7 @@ class MusicAddict3_Engine {
                     game_loop_interval: this.Conf.game_loop_interval,
                     ui_loop_interval: this.Conf.ui_loop_interval,
                     save_loop_interval: this.Conf.save_loop_interval,
+                    authrefresh_loop_interval: this.Conf.authrefresh_loop_interval,
                 }
             },
         });
@@ -494,6 +496,20 @@ class MusicAddict3_Engine {
                     payload: {},
                 });
                 break;
+            case 'authrefresh_loop_tick':
+                try {
+                    if (this.DB.authStore.isValid) {
+                        await this.DB.collection('ma3_users').authRefresh();
+                    }
+                }
+                catch (boo) {
+                    this.UI.sysmsg('Authentication-refresh failed.');
+                }
+                this.Worker.postMessage({
+                    cmd: 'plan_next_authrefresh_loop_tick',
+                    payload: {},
+                });
+                break;
             case 'activeplayers_loop_tick':
                 try {
                     const activeplayers = await this.DB.collection('ma3_activeplayers').getOne('1', {});
@@ -755,7 +771,7 @@ class MusicAddict3_Engine {
     async log_trade(type, record) {
         try {
             const log_status = await this.DB.collection('ma3_tradelog').create({
-                user: this.user_session.id,
+                user_name: this.user_session.name,
                 trade_type: type,
                 record: JSON.stringify(record),
             });
@@ -769,6 +785,7 @@ class MusicAddict3_Engine {
     add_to_marked_trades_list(log_entry, append = false) {
         const entry = document.createElement('tr');
         entry.innerHTML = `
+            <td>${log_entry['user_name']}</td>
             <td>${Fmt.timestamp(Date.parse(log_entry.created), '{year}-{month}-{day} {hours}:{minutes}')}</td>
             <td>${(log_entry['trade_type'] == 'buy') ? Fmt.cash(log_entry['record'].buy_price.amount) : ''}</td>
             <td>${(log_entry['trade_type'] == 'sell') ? Fmt.cash(log_entry['record'].sell_price.amount) : ''}</td>
