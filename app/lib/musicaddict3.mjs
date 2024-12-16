@@ -497,7 +497,6 @@ class MusicAddict3_Engine {
                 });
                 break;
             case 'authrefresh_loop_tick':
-                console.debug('authrefresh_loop_tick');
                 try {
                     if (this.DB.authStore.isValid) {
                         await this.DB.collection('ma3_users').authRefresh();

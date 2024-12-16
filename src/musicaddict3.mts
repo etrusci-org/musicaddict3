@@ -210,11 +210,9 @@ class MusicAddict3_Engine
     async init_market(): Promise<void>
     {
         const recent_log_entries: ListResult<RecordModel> = await this.DB.collection('ma3_tradelog').getList(1, this.Conf.tradelog_list_max, { sort: '-created' })
-        // console.log(recent_log_entries)
 
         for (const log_entry of recent_log_entries.items) {
             this.add_to_marked_trades_list(log_entry, true)
-            // console.log(log_entry)
         }
 
         await this.DB.collection('ma3_tradelog').subscribe('*', (e) => this.add_to_marked_trades_list(e.record), { sort: '-created' })
@@ -665,7 +663,6 @@ class MusicAddict3_Engine
                 break
 
             case 'authrefresh_loop_tick':
-                console.debug('authrefresh_loop_tick')
                 try {
                     if (this.DB.authStore.isValid) {
                         await this.DB.collection('ma3_users').authRefresh()

@@ -111,7 +111,7 @@ const plan_next_save_loop_tick = (): void =>
 
 const plan_next_authrefresh_loop_tick = (): void =>
 {
-    console.debug('plan_next_authrefresh_loop_tick')
+    // console.debug('plan_next_authrefresh_loop_tick')
     AUTHREFRESH_LOOP_ID = setTimeout(() => {
         postMessage({
             cmd: 'authrefresh_loop_tick',
