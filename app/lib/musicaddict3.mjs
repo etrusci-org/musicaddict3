@@ -785,8 +785,8 @@ class MusicAddict3_Engine {
     add_to_marked_trades_list(log_entry, append = false) {
         const entry = document.createElement('tr');
         entry.innerHTML = `
+            <td>${Fmt.timestamp(Date.parse(log_entry.created), '{year}-{month}-{day}')}</td>
             <td>${log_entry['user_name']}</td>
-            <td>${Fmt.timestamp(Date.parse(log_entry.created), '{year}-{month}-{day} {hours}:{minutes}')}</td>
             <td>${(log_entry['trade_type'] == 'buy') ? Fmt.cash(log_entry['record'].buy_price.amount) : ''}</td>
             <td>${(log_entry['trade_type'] == 'sell') ? Fmt.cash(log_entry['record'].sell_price.amount) : ''}</td>
             <td>${(log_entry['trade_type'] == 'sell') ? Fmt.cash(log_entry['record'].sell_price.amount - log_entry['record'].buy_price.amount) : ''}</td>
