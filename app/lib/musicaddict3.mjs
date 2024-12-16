@@ -7,7 +7,7 @@ class MusicAddict3_Conf {
     game_loop_interval = 3000;
     ui_loop_interval = 1000;
     save_loop_interval = 60000;
-    authrefresh_loop_interval = 180000;
+    authrefresh_loop_interval = 600000;
     activeplayers_loop_interval = 30000;
     discover_chance = 0.13;
     listening_duration_range = { min: 15000, max: 90000 };
