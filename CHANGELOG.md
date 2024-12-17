@@ -3,7 +3,12 @@
 
 
 
-## Unreleased
+<!-- ## Unreleased -->
+
+
+
+
+## v1.0.1 - 2024-12-17
 
 - Added: Username in market list.
 - Added: Market link in game interface.
