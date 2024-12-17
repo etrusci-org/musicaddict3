@@ -7,7 +7,8 @@
 
 - Added: Username in market list.
 - Added: Market link in game interface.
-<!-- Maybe, still testing: - Fix: Auto-save sometimes not working for a long duration. -->
+- Removed: Transaction time is not displayed anymore, just the day.
+- Fixed: Probably fixed auto-save sometimes not working for a long duration.
 
 
 
